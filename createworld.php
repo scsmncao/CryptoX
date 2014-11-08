@@ -34,7 +34,14 @@
                         </li>
                       </ul>
                         <ul class="nav navbar-nav pull-right">
-                            <li><a href="profile.php">My Profile</a></li>
+                            <li><a href="profile.php"><?php
+                                session_start();
+
+                                if ($_SESSION['userstatus']) {
+                                    echo $_SESSION['username'];
+                                }
+                            ?></a></li>
+                            <li><a href = "session.php?redirect_to= index.php">Sign Out</a></li>
                         </ul>
                     </div>
                 </div>

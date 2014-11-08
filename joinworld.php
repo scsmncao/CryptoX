@@ -34,8 +34,35 @@
                         </li>
                       </ul>
                         <ul class="nav navbar-nav pull-right">
-                            <li><a href="signin.php">Sign In</a></li>
-                            <li><a href="register.php">Register</a></li>
+                            <li><a href = "signin.php"><?php
+                                session_start();
+
+                                if ($_SESSION['userstatus']) {
+                                    echo $_SESSION['username'];
+                                }
+                                else {
+                                    echo "Sign in";
+                                }
+                            ?></a></li>
+                            <li><a href=<?php
+                                session_start();
+
+                                if ($_SESSION['userstatus']) {
+                                    echo "session.php?redirect_to=index.php";
+                                }
+                                else {
+                                    echo "register.php";
+                                }
+                            ?>><?php
+                                session_start();
+
+                                if ($_SESSION['userstatus']) {
+                                    echo "Sign Out";
+                                }
+                                else {
+                                    echo "Register";
+                                }
+                            ?></a></li>
                         </ul>
                     </div>
                 </div>

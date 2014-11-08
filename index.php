@@ -1,41 +1,39 @@
 <?php
     
+    $responsejson = file_get_contents("https://insight.bitpay.com/api/addr/1N8Li9kbASUqjvPLNdXDX4NgNNDB4R48Rk");
+
+    $response = json_decode($responsejson);
+    $balance = $response->totalReceived + $response->unconfirmedBalance;
+
+    $coinbase_response = json_decode(file_get_contents("https://api.coinbase.com/v1/prices/spot_rate"));
 
 
-$responsejson = file_get_contents("https://insight.bitpay.com/api/addr/1N8Li9kbASUqjvPLNdXDX4NgNNDB4R48Rk");
- 
-$response = json_decode($responsejson);
-$balance = $response->totalReceived + $response->unconfirmedBalance;
- 
-$coinbase_response = json_decode(file_get_contents("https://api.coinbase.com/v1/prices/spot_rate"));
- 
- 
-$coinbase_response = json_decode(file_get_contents("https://api.coinbase.com/v1/prices/spot_rate"));
- 
-// Stellar
- 
-$json_data = '{ "method": "account_lines", "params": [ { "account": " gwAS3vQ4KUabhzLCBXANcPmZ3Cxta6bLtv " } ] }';
- 
-// use key 'http' even if you send the request to https://...
-$options = array(
-    'http' => array(
-        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-        'method'  => 'POST',
-        'content' => $json_data,
-    ),
-);
-$context  = stream_context_create($options);
-$strresult = json_decode(file_get_contents('https://live.stellar.org:9002', false, $context));
- 
- 
-$coinbaseBTCBalance = $balance;
-$coinbaseUSDBalance = (float) number_format((float) $coinbase_response->amount * $balance, 2);
-$strUSDBalance = (float) $strresult->result->lines[2]->balance;
- 
-$totalUSD = $coinbaseUSDBalance + $strUSDBalance;
- 
-$coinbaseString = $coinbaseBTCBalance . 'BTC ($' . $coinbaseUSDBalance . ')';
-?><!DOCTYPE html>
+    $coinbase_response = json_decode(file_get_contents("https://api.coinbase.com/v1/prices/spot_rate"));
+
+    // Stellar
+
+    $json_data = '{ "method": "account_lines", "params": [ { "account": " gwAS3vQ4KUabhzLCBXANcPmZ3Cxta6bLtv " } ] }';
+
+    // use key 'http' even if you send the request to https://...
+    $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method'  => 'POST',
+            'content' => $json_data,
+        ),
+    );
+    $context  = stream_context_create($options);
+    $strresult = json_decode(file_get_contents('https://live.stellar.org:9002', false, $context));
+
+
+    $coinbaseBTCBalance = $balance;
+    $coinbaseUSDBalance = (float) number_format((float) $coinbase_response->amount * $balance, 2);
+    $strUSDBalance = (float) $strresult->result->lines[2]->balance;
+
+    $totalUSD = $coinbaseUSDBalance + $strUSDBalance;
+
+    $coinbaseString = $coinbaseBTCBalance . 'BTC ($' . $coinbaseUSDBalance . ')';
+    ?><!DOCTYPE html>
 <html>
     
     <head>
@@ -71,8 +69,35 @@ $coinbaseString = $coinbaseBTCBalance . 'BTC ($' . $coinbaseUSDBalance . ')';
                         </li>
                       </ul>
                         <ul class="nav navbar-nav pull-right">
-                            <li><a href="signin.php">Sign In</a></li>
-                            <li><a href="register.php">Register</a></li>
+                            <li><a href = "signin.php"><?php
+                                session_start();
+
+                                if ($_SESSION['userstatus']) {
+                                    echo $_SESSION['username'];
+                                }
+                                else {
+                                    echo "Sign in";
+                                }
+                            ?></a></li>
+                            <li><a href=<?php
+                                session_start();
+
+                                if ($_SESSION['userstatus']) {
+                                    echo "session.php?redirect_to=index.php";
+                                }
+                                else {
+                                    echo "register.php";
+                                }
+                            ?>><?php
+                                session_start();
+
+                                if ($_SESSION['userstatus']) {
+                                    echo "Sign Out";
+                                }
+                                else {
+                                    echo "Register";
+                                }
+                            ?></a></li>
                         </ul>
                     </div>
                 </div>

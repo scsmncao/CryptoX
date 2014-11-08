@@ -1,4 +1,26 @@
 
+<script type='text/javascript' src='helpers.js'></script>  
+<?php
+    //SELECT * FROM `users` WHERE `username` LIKE 'username'
+    session_start();
+    $_SESSION['userstatus'] = false;
+    require("mysql.php");
+    if (!empty($_POST)) {
+        $username = $_POST['username'];
+        $_SESSION['username'] = $username;
+        $password = sha1($_POST['password']);
+        $result = mysql_query("SELECT password FROM `users` WHERE username LIKE ('$username')");
+        $userpass = mysql_fetch_assoc($result);
+        if ($userpass['password'] == $password) {
+            $_SESSION['userstatus'] = true;
+            header( 'Location: profile.php' );
+        }
+        else {
+            echo "Wrong username or password";
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -63,19 +85,15 @@
       <div class="col-md-4">
       </div>
       <div class="col-md-4">
-      <form class="form-signin" role="form">
+      <form role="form" action = "signin.php" method = "post">
         <center><h2 class="form-signin-heading">Please Sign In </h2></center>
-        <input type="text" class="form-control" placeholder="Username" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me!
-          </label>
-        </div>
-        <a class="btn btn-lg btn-primary btn-block" type="submit" href="profile.php">Sign in</a>
+        <input type="text" name = "username" id = "username" class="form-control" placeholder="Username">
+        <input type="password" name = "password" id = "password" class="form-control" placeholder="Password">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
 
     </div> <!-- /container -->
+</div>
 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

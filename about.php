@@ -32,7 +32,16 @@
                         </li>
                       </ul>
                         <ul class="nav navbar-nav pull-right">
-                            <li><a href = "signin.php"><?php
+                            <li><a href = <?php
+                                session_start();
+
+                                if ($_SESSION['userstatus']) {
+                                    echo "profile.php";
+                                }
+                                else {
+                                    echo "signin.php";
+                                }
+                            ?>><?php
                                 session_start();
 
                                 if ($_SESSION['userstatus']) {

@@ -15,4 +15,39 @@
 
 .navbar-inverse p {
     color: #FFF;
+<<<<<<< HEAD
 }
+=======
+}
+
+h1 {
+	display: block;
+    font-size: 5em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 5;
+    margin-right: 5;
+    font-weight: bold;
+}
+
+.features {
+    background-image:"./images/world.png";
+    display:none;
+
+}
+
+.rotate{ 
+    -moz-animation:90s rotateRight infinite linear; 
+    -webkit-animation:90s rotateRight infinite linear; 
+}
+
+@-moz-keyframes rotateRight{
+    0%{ -moz-transform:rotate(0deg); -moz-transform-origin:50% 50%; }
+    100%{ -moz-transform:rotate(360deg); }
+}
+
+@-webkit-keyframes rotateRight{
+    0%{ -webkit-transform:rotate(0deg); -webkit-transform-origin:50% 50%; }
+    100%{ -webkit-transform:rotate(360deg); }
+}
+>>>>>>> 17d07e4c6490bb1691a39e17d827de84902d6894

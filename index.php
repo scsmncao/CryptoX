@@ -47,11 +47,10 @@
         <script src="https://cdn.firebase.com/js/client/1.1.3/firebase.js"></script>
     </head>
     <body>
-        <div class="container">
-            <nav class="navbar navbar-inverse" role="navigation">
-                <div class="container-fluid">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container">
                     <div class="navbar-header">
-                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -61,13 +60,11 @@
                             <p>CryptoX</p>
                         </a>
                     </div>
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                      <ul class="nav navbar-nav">
-                        <li><a href="about.php">About</a></li>
-                        <li><a href="#">Planets</a></li>
-                          </ul>
-                        </li>
-                      </ul>
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="nav navbar-nav">
+                            <li><a href="about.php">About</a></li>
+                            <li><a href="#">Planets</a></li>
+                        </ul>
                         <ul class="nav navbar-nav pull-right">
                             <li><a href = <?php
                                 session_start();
@@ -111,7 +108,6 @@
                     </div>
                 </div>
             </nav>
-        </div>
         <div class="features" id = "features">
                 <div class="container">
                   <div class="row">
